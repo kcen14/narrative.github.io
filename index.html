@@ -57,11 +57,11 @@ function handleMouseOver(d, i) {
 
       svg.append("text").attr({
          id: "t" + d.AverageCityMPG + "-" + d.AverageHighwayMPG + "-" + i,
-          x: function() { (d3.event.pageX)+"px" },
-          y: function() { (d3.event.pageY)+"px" }
+          x: function() { (d3.event.pageX)+"px"; },
+          y: function() { (d3.event.pageY)+"px"; }
       })
       .text(function() {
-        return [d.AverageCityMPG, d.AverageHighwayMPG];  // Value of the text
+        return d.AverageCityMPG;  // Value of the text
       });
     }
 
