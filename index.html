@@ -1,9 +1,22 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
-<style> circle {fill: lightblue; stroke: black;} </style>
+<style> 
+circle {fill: lightblue; stroke: black;} 
+#tooltip{
+    opacity: 0;
+    postiion: absolute;
+    text-align: center;
+    width: 60x; height: 40px;
+    background: white;
+    border: 0px;
+}
+</style>
 <body onload='init()'>
 <svg width=900 height=900>
 </svg>
+    
+<div id="tooltip"></div>
+    
 <script>
 async function init() {
 var margin = 100,
@@ -16,6 +29,8 @@ var svg = d3.select("svg");
 
 var x = d3.scaleLog().domain([10,150]).range([0, width]);
 var y = d3.scaleLog().domain([10,150]).range([height, 0]);
+    
+var tooltip = d3.select("#tooltip");
 
 svg.append("g").attr("transform","translate("+margin+","+margin+")")
     .selectAll("circle")
@@ -33,6 +48,15 @@ svg.append("g")
 svg.append("g")
    .attr("transform", "translate("+margin+","+(height+margin)+")")
    .call(d3.axisBottom(x).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")));
+    
+d3.select(".chart")
+    .on("mouseover", function(d,i) {
+        tooltip.style("opacity", 1)
+               .style("left",(d3.event.pageX)+"px")
+               .style("top",(d3.event.pageY)+"px")
+               .html("Item #"+i+" is "+d);
+     })
+    .on("mouseout", function() { tooltip.style("opacity",0) })
 }
 </script>
 </body>
