@@ -1,7 +1,10 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
 
-<p>First graph </p>    
+<p>
+    <font size = "18"><b>1. Car Fuel Efficiencies</b></font>
+    This scene shows the fuel efficiences 
+</p>    
     
 <a href="./page2.html" class = "slidelink">Next Slide</a>   
 
@@ -75,7 +78,7 @@ function handleMouseOver(d, i) {
       tooltip.style("opacity",1)
              .style("left",(d3.event.pageX)+"px")
              .style("top",(d3.event.pageY)+"px")
-             .html("CityMPG: " + d.AverageCityMPG + " HighwayMPG: " + d.AverageHighwayMPG);
+             .html("Make: " + d.Make);
     }
 
 function handleMouseOut(d, i) {
