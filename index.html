@@ -2,7 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> 
 circle {fill: lightblue; stroke: black;} 
-#tooltip{
+#tooltip {
     opacity: 0;
     postiion: absolute;
     text-align: center;
@@ -49,7 +49,9 @@ svg.append("g")
    .attr("transform", "translate("+margin+","+(height+margin)+")")
    .call(d3.axisBottom(x).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")));
     
-d3.select(".chart")
+var circle = svg.selectAll("circle")
+circles
+    .selectAll("circle")
     .on("mouseover", function(d,i) {
         tooltip.style("opacity", 1)
                .style("left",(d3.event.pageX)+"px")
