@@ -8,6 +8,7 @@
 <p>
     This scene shows a scatterplot of car fuel efficiences, showing both the average MPG in city driving (on the x-axis) and the average MPG in highway driving (on the y-axis).
     The scatterplot is logarithmically scaled. As can be seen, city MPGs are mostly lower than highway MPGs, with most car makes clustered between 10-50mpg, few makes in the middle, and then fewer makes with high city and highway MPGs. 
+    You can mouseover each of the plotted data points to see details such as make and number of engine cylinders.
 </p>
     
 <a href="./page2.html" class = "slidelink">Next Slide</a>   
@@ -82,7 +83,7 @@ function handleMouseOver(d, i) {
       tooltip.style("opacity",1)
              .style("left",(d3.event.pageX)+"px")
              .style("top",(d3.event.pageY)+"px")
-             .html("Make: " + d.Make);
+             .html("Make: " + d.Make + ".</br>" + "Engine Cylinders: " + d.EngineCylinders);
     }
 
 function handleMouseOut(d, i) {
