@@ -40,13 +40,33 @@ height = 600
 increase = 2;
 
 const data = await d3.csv("https://flunky.github.io/cars2017.csv");
-var eAvg = d3.mean(d.
+var eAvg = 0;
+var eCount = 0;
+var gAvg = 0;
+var gCount = 0;
+var dAvg = 0;
+var dCount = 0;
 var svg = d3.select("svg");
 
 var x = d3.scaleLinear().domain([-1,13]).range([0, width]);
 var y = d3.scaleLog().domain([10,150]).range([height, 0]);
     
 var tooltip = d3.select("#tooltip");
+    
+data.forEach(function(d){
+    if(d.Fuel == "Electricity") {
+        eAvg = eAvg + d.AverageCityMPG + d.AverageHighwayMPG;
+        eCount = eCount +1;
+    }
+    elseif(d.Fuel == "Diesel") {
+        dAvg = dAvg + d.AverageCityMPG + d.AverageHighwayMPG;
+        dCount = dCount + 1;
+    }
+    else {
+        gAvg = gAvg + d.AverageCityMPG + d.AverageHighwayMPG;
+        gCount = gCount + 1;
+    }
+}
 
 svg.append("g").attr("transform","translate("+margin+","+margin+")")
     .selectAll("rect")
