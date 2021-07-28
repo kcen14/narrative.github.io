@@ -4,7 +4,7 @@
 circle {fill: lightblue; stroke: black;} 
 #tooltip {
     opacity: 0;
-    postiion: absolute;
+    position: absolute;
     text-align: center;
     width: 60x; height: 40px;
     background: white;
@@ -40,13 +40,8 @@ svg.append("g").attr("transform","translate("+margin+","+margin+")")
      .attr('cx', function(d,i) {return x(d.AverageCityMPG);})
      .attr('cy', function(d,i) {return y(d.AverageHighwayMPG);})
      .attr('r', function (d,i) {return parseInt(d.EngineCylinders) + increase})
-     .on("mouseover", function (d,i) {
-          tooltip.style("opacity", 1)
-               .style("left",(d3.event.pageX)+"px")
-               .style("top",(d3.event.pageY)+"px")
-               .html("Item #"+i+" is "+d.EngineCylinders);
-     })
-     .on("mouseout", function() { tooltip.style("opacity",0) });
+     .on("mouseover", handleMouseOver)
+     .on("mouseout", handleMouseOut);
 
 svg.append("g")
    .attr("transform", "translate("+margin+","+margin+")")
@@ -55,6 +50,27 @@ svg.append("g")
 svg.append("g")
    .attr("transform", "translate("+margin+","+(height+margin)+")")
    .call(d3.axisBottom(x).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")));
+    
+function handleMouseOver(d, i) {
+      d3.select(this)
+         .attr("fill","orange");
+
+      svg.append("text").attr({
+         id: "t" + d.AverageCityMPG + "-" + d.AverageHighwayMPG + "-" + i,
+          x: function() { (d3.event.pageX)+"px" },
+          y: function() { (d3.event.pageY)+"px" }
+      })
+      .text(function() {
+        return [d.AverageCityMPG, d.AverageHighwayMPG];  // Value of the text
+      });
+    }
+
+function handleMouseOut(d, i) {
+       d3.select(this)
+         .attr("fill","black");
+
+       d3.select("t" + d.AverageCityMPG + "-" + d.AverageHighwayMPG + "-" + i).remove();
+     }
 }
 </script>
 </body>
