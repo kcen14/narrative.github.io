@@ -52,26 +52,16 @@ svg.append("g")
    .call(d3.axisBottom(x).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")));
     
 function handleMouseOver(d, i) {
-      d3.select(this)
-         .attr("fill","orange");
-
-      svg.append("text").attr({
-         id: "t" + d.AverageCityMPG + "-" + d.AverageHighwayMPG + "-" + i,
-          x: function() { (d3.event.pageX)+"px"; },
-          y: function() { (d3.event.pageY)+"px"; }
-      })
-      .text(function() {
-        return d.AverageCityMPG;  // Value of the text
-      });
+      tooltip.style("opacity",1)
+             .style("left",(d3.event.pageX)+"px")
+             .style("top",(d3.event.pageY)+"px")
+             .html("Item");
     }
 
 function handleMouseOut(d, i) {
-       d3.select(this)
-         .attr("fill","black");
-
-       d3.select("t" + d.AverageCityMPG + "-" + d.AverageHighwayMPG + "-" + i).remove();
-     }
-}
+      tooltip.style("opacity",0);
+    }
+}    
 </script>
 </body>
 </html>
