@@ -11,7 +11,7 @@
     </font>
 </p>
     
-<a href="./page2.html" class = "slidelink">Next Slide</a>   
+<a href="./page3.html" class = "slidelink">Next Slide</a>   
 
 <style> 
 circle {fill: lightblue; stroke: black;} 
@@ -67,7 +67,7 @@ svg.append("g")
 svg.append("text")
     .attr("transform","translate("+(margin+width/2)+","+(height+margin+35)+")")
     .style("text-anchor", "middle")
-    .text("Average City MPG");
+    .text("Engine Cylinders");
     
 svg.append("text")
     .attr("transform", "rotate(-90)")
@@ -83,7 +83,7 @@ function handleMouseOver(d, i) {
       tooltip.style("opacity",1)
              .style("left",(d3.event.pageX)+"px")
              .style("top",(d3.event.pageY)+"px")
-             .html("Make: " + d.Make + ".</br>" + "Engine Cylinders: " + d.EngineCylinders);
+             .html("Make: " + d.Make);
     }
 
 function handleMouseOut(d, i) {
