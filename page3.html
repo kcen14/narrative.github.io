@@ -1,0 +1,98 @@
+<html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+
+<p>
+    <font size = "14"><b>3. City Fuel Efficiencies By Number Of Engine Cylinders</b></font>
+</p>    
+    
+<p>
+    <font size = "4">
+    This scene is the same as the previous scene, but shows the city fuel efficiencies instead, based on the number of engine cyclinders. As we can see the number of engine cyclinders greatly affects a car's city fuel efficiency with a higher number of engine cyclinders generally resulting in a lower fuel efficiency.
+    </font>
+</p>
+    
+<a href="./page3.html" class = "slidelink">Next Slide</a>   
+
+<style> 
+circle {fill: lightblue; stroke: black;} 
+#tooltip {
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    width: 60x; height: 40px;
+    background: white;
+    border: 0px;
+}
+</style>
+<body onload='init()'>
+<svg width=800 height=800>
+</svg>
+    
+<div id="tooltip"></div>
+    
+<script>
+async function init() {
+var margin = 100,
+width = 600,
+height = 600
+increase = 2;
+
+const data = await d3.csv("https://flunky.github.io/cars2017.csv");
+var svg = d3.select("svg");
+
+var x = d3.scaleLinear().domain([-1,13]).range([0, width]);
+var y = d3.scaleLog().domain([10,150]).range([height, 0]);
+    
+var tooltip = d3.select("#tooltip");
+
+svg.append("g").attr("transform","translate("+margin+","+margin+")")
+    .selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+     .attr('cx', function(d,i) {return x(d.EngineCylinders);})
+     .attr('cy', function(d,i) {return y(d.AverageCityMPG);})
+     .attr('r', function (d,i) {return 4})
+     .on("mouseover", handleMouseOver)
+     .on("mouseout", handleMouseOut);
+
+svg.append("g")
+   .attr("transform", "translate("+margin+","+margin+")")
+   .call(d3.axisLeft(y).tickValues([10, 20, 50, 100]).tickFormat(d3.format('~s')));
+
+svg.append("g")
+   .attr("transform", "translate("+margin+","+(height+margin)+")")
+   .call(d3.axisBottom(x).tickValues([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).tickFormat(d3.format("~s")));
+
+svg.append("text")
+    .attr("transform","translate("+(margin+width/2)+","+(height+margin+35)+")")
+    .style("text-anchor", "middle")
+    .text("Engine Cylinders");
+    
+svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("dy", (margin-35))
+    .attr("dx", -(margin+height/2))
+    .style("text-anchor", "middle")
+    .text("Average City MPG");
+    
+function handleMouseOver(d, i) {
+      d3.select(this)
+        .style("fill","orange");
+     
+      tooltip.style("opacity",1)
+             .style("left",(d3.event.pageX)+"px")
+             .style("top",(d3.event.pageY)+"px")
+             .html("Make: " + d.Make);
+    }
+
+function handleMouseOut(d, i) {
+      d3.select(this)
+        .style("fill","lightblue");
+    
+      tooltip.style("opacity",0);
+    }
+}
+</script>
+</body>
+</html>
