@@ -39,7 +39,14 @@ svg.append("g").attr("transform","translate("+margin+","+margin+")")
     .append("circle")
      .attr('cx', function(d,i) {return x(d.AverageCityMPG);})
      .attr('cy', function(d,i) {return y(d.AverageHighwayMPG);})
-     .attr('r', function (d,i) {return parseInt(d.EngineCylinders) + increase});
+     .attr('r', function (d,i) {return parseInt(d.EngineCylinders) + increase})
+     .on("mouseover", function (d,i) {
+          tooltip.style("opacity", 1)
+               .style("left",(d3.event.pageX)+"px")
+               .style("top",(d3.event.pageY)+"px")
+               .html("Item #"+i+" is "+d.EngineCylinders);
+     })
+     .on("mouseout", function() { tooltip.style("opacity",0) });
 
 svg.append("g")
    .attr("transform", "translate("+margin+","+margin+")")
@@ -48,16 +55,6 @@ svg.append("g")
 svg.append("g")
    .attr("transform", "translate("+margin+","+(height+margin)+")")
    .call(d3.axisBottom(x).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")));
-    
-var circle = svg.selectAll("circle")
-circles
-    .on("mouseover", function(d,i) {
-        tooltip.style("opacity", 1)
-               .style("left",(d3.event.pageX)+"px")
-               .style("top",(d3.event.pageY)+"px")
-               .html("Item #"+i+" is "+d.EngineCylinders);
-     })
-    .on("mouseout", function() { tooltip.style("opacity",0) })
 }
 </script>
 </body>
