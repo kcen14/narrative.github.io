@@ -1,10 +1,21 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
 
-<a href="./page2.html" class = "slidelink">Next Slide</a>
+<p>
+    <font size = "11"><b>2. Fuel Efficiency based on Engine Cylinders</b></font>
+</p>    
+    
+<p>
+    <font size = "11".This scene shows a scatterplot of car fuel efficiences, showing both the average MPG in city driving (on the x-axis) and the average MPG in highway driving (on the y-axis).<br>
+    The scatterplot is logarithmically scaled. As can be seen, city MPGs are mostly lower than highway MPGs, with most car makes clustered between 10-50mpg, few makes in the middle,<br>
+    and then fewer makes with high city and highway MPGs. You can mouseover each of the plotted data points to see details such as make and number of engine cylinders.
+    </font>
+</p>
+    
+<a href="./page2.html" class = "slidelink">Next Slide</a>   
 
 <style> 
-circle {fill: orange; stroke: black;} 
+circle {fill: lightblue; stroke: black;} 
 #tooltip {
     opacity: 0;
     position: absolute;
@@ -53,6 +64,18 @@ svg.append("g")
 svg.append("g")
    .attr("transform", "translate("+margin+","+(height+margin)+")")
    .call(d3.axisBottom(x).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")));
+
+svg.append("text")
+    .attr("transform","translate("+(margin+width/2)+","+(height+margin+35)+")")
+    .style("text-anchor", "middle")
+    .text("Average City MPG");
+    
+svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("dy", (margin-35))
+    .attr("dx", -(margin+height/2))
+    .style("text-anchor", "middle")
+    .text("Average Highway MPG");
     
 function handleMouseOver(d, i) {
       d3.select(this)
@@ -61,7 +84,7 @@ function handleMouseOver(d, i) {
       tooltip.style("opacity",1)
              .style("left",(d3.event.pageX)+"px")
              .style("top",(d3.event.pageY)+"px")
-             .html("CityMPG: " + d.AverageCityMPG + " HighwayMPG: " + d.AverageHighwayMPG);
+             .html("Make: " + d.Make + ".</br>" + "Engine Cylinders: " + d.EngineCylinders);
     }
 
 function handleMouseOut(d, i) {
