@@ -12,7 +12,7 @@ circle {fill: lightblue; stroke: black;}
 }
 </style>
 <body onload='init()'>
-<svg width=600 height=600>
+<svg width=800 height=800>
 </svg>
     
 <div id="tooltip"></div>
@@ -20,8 +20,8 @@ circle {fill: lightblue; stroke: black;}
 <script>
 async function init() {
 var margin = 10,
-width = 400,
-height = 400
+width = 600,
+height = 600
 increase = 2;
 
 const data = await d3.csv("https://flunky.github.io/cars2017.csv");
