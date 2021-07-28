@@ -2,13 +2,12 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 
 <p>
-    <font size = "10"><b>1. Car Fuel Efficiencies</b></font>
+    <font size = "14"><b>2. Highway Fuel Efficiencies By Number Of Engine Cylinders</b></font>
 </p>    
     
 <p>
-    <font size = "10">This scene shows a scatterplot of car fuel efficiences, showing both the average MPG in city driving (on the x-axis) and the average MPG in highway driving (on the y-axis).<br>
-    The scatterplot is logarithmically scaled. As can be seen, city MPGs are mostly lower than highway MPGs, with most car makes clustered between 10-50mpg, few makes in the middle,<br>
-    and then fewer makes with high city and highway MPGs. You can mouseover each of the plotted data points to see details such as make and number of engine cylinders.
+    <font size = "8">
+    This scene shows the highway fuel efficiencies based on the number of engine cyclinders. As we can see the number of engine cyclinders greatly affects a car's fuel efficiency with a higher number of engine cyclinders generally resulting in a lower fuel efficiency.
     </font>
 </p>
     
@@ -41,7 +40,7 @@ increase = 2;
 const data = await d3.csv("https://flunky.github.io/cars2017.csv");
 var svg = d3.select("svg");
 
-var x = d3.scaleLog().domain([10,150]).range([0, width]);
+var x = d3.scaleLog().domain([-1,13]).range([0, width]);
 var y = d3.scaleLog().domain([10,150]).range([height, 0]);
     
 var tooltip = d3.select("#tooltip");
