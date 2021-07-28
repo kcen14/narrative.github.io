@@ -6,7 +6,7 @@
 </p>    
     
 <p>
-    <font size = "8">
+    <font size = "4">
     This scene shows the highway fuel efficiencies based on the number of engine cyclinders. As we can see the number of engine cyclinders greatly affects a car's fuel efficiency with a higher number of engine cyclinders generally resulting in a lower fuel efficiency.
     </font>
 </p>
@@ -40,7 +40,7 @@ increase = 2;
 const data = await d3.csv("https://flunky.github.io/cars2017.csv");
 var svg = d3.select("svg");
 
-var x = d3.scaleLog().domain([-1,13]).range([0, width]);
+var x = d3.scaleLinear().domain([-1,13]).range([0, width]);
 var y = d3.scaleLog().domain([10,150]).range([height, 0]);
     
 var tooltip = d3.select("#tooltip");
@@ -50,9 +50,9 @@ svg.append("g").attr("transform","translate("+margin+","+margin+")")
     .data(data)
     .enter()
     .append("circle")
-     .attr('cx', function(d,i) {return x(d.AverageCityMPG);})
+     .attr('cx', function(d,i) {return x(d.EngineCylinders);})
      .attr('cy', function(d,i) {return y(d.AverageHighwayMPG);})
-     .attr('r', function (d,i) {return parseInt(d.EngineCylinders) + increase})
+     .attr('r', function (d,i) {return 4})
      .on("mouseover", handleMouseOver)
      .on("mouseout", handleMouseOut);
 
@@ -62,7 +62,7 @@ svg.append("g")
 
 svg.append("g")
    .attr("transform", "translate("+margin+","+(height+margin)+")")
-   .call(d3.axisBottom(x).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")));
+   .call(d3.axisBottom(x).tickValues([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).tickFormat(d3.format("~s")));
 
 svg.append("text")
     .attr("transform","translate("+(margin+width/2)+","+(height+margin+35)+")")
