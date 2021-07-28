@@ -1,7 +1,9 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
 
-<a href="./page2.html" class = "slidelink">Next Slide</a>
+<p>First graph </p>    
+    
+<a href="./page2.html" class = "slidelink">Next Slide</a>   
 
 <style> 
 circle {fill: lightblue; stroke: black;} 
@@ -53,6 +55,18 @@ svg.append("g")
 svg.append("g")
    .attr("transform", "translate("+margin+","+(height+margin)+")")
    .call(d3.axisBottom(x).tickValues([10, 20, 50, 100]).tickFormat(d3.format("~s")));
+
+svg.append("text")
+    .attr("transform","translate("+(margin+width/2)+","+(height+margin+35)+")")
+    .style("text-anchor", "middle")
+    .text("Average City MPG");
+    
+svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("dy", (margin-35))
+    .attr("dx", -(margin+height/2))
+    .style("text-anchor", "middle")
+    .text("Average Highway MPG");
     
 function handleMouseOver(d, i) {
       d3.select(this)
