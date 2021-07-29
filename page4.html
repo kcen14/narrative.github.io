@@ -38,6 +38,7 @@ var margin = 100,
 width = 600,
 height = 600
 increase = 2;
+    
 
 const data = await d3.csv("https://flunky.github.io/cars2017.csv");
 var eAvg = 0;
@@ -47,9 +48,6 @@ var gCount = 0;
 var dAvg = 0;
 var dCount = 0;
 var svg = d3.select("svg");
-
-var x = d3.scaleLinear().domain([-1,13]).range([0, width]);
-var y = d3.scaleLog().domain([10,150]).range([height, 0]);
     
 var tooltip = d3.select("#tooltip");
     
@@ -67,16 +65,21 @@ data.forEach(function(d){
         gCount = gCount +1;
     }
  });
-}
+    
+var gData = [eAvg/(eCount*2), dAvg/(dCount*2), gAvg/(gCount*2)];
 
+var x = d3.scaleLinear().domain([-1,4]).range([0, width]);
+var y = d3.scaleLog().domain([10,150]).range([height, 0]);    
+    
 svg.append("g").attr("transform","translate("+margin+","+margin+")")
     .selectAll("rect")
-    .data(data)
+    .data(gData)
     .enter()
     .append("rect")
-     .attr('cx', function(d,i) {return x(d.EngineCylinders);})
-     .attr('cy', function(d,i) {return y(d.AverageCityMPG);})
-     .attr('r', function (d,i) {return 4;})
+     .attr("width",79)
+     .attr("x",function(d,i) {return (x(i)-40); })
+     .attr("height", function(d) { return height-y(d); })
+     .attr("y", function(d) {return y(d); })
      .on("mouseover", handleMouseOver)
      .on("mouseout", handleMouseOut);
 
@@ -86,7 +89,7 @@ svg.append("g")
 
 svg.append("g")
    .attr("transform", "translate("+margin+","+(height+margin)+")")
-   .call(d3.axisBottom(x).tickValues([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).tickFormat(d3.format("~s")));
+   .call(d3.axisBottom(x).tickValues([0, 1, 2]).tickFormat(d3.format("~s")));
 
 svg.append("text")
     .attr("transform","translate("+(margin+width/2)+","+(height+margin+35)+")")
@@ -107,7 +110,7 @@ function handleMouseOver(d, i) {
       tooltip.style("opacity",1)
              .style("left",(d3.event.pageX)+"px")
              .style("top",(d3.event.pageY)+"px")
-             .html("Make: " + d.Make);
+             .html(gData[i]);
     }
 
 function handleMouseOut(d, i) {
