@@ -55,17 +55,18 @@ var tooltip = d3.select("#tooltip");
     
 data.forEach(function(d){
     if(d.Fuel == "Electricity") {
-        eAvg = eAvg + d.AverageCityMPG + d.AverageHighwayMPG;
+        eAvg += parseInt(d.AverageCityMPG) + parseInt(d.AverageHighwayMPG);
         eCount = eCount +1;
     }
-    elseif(d.Fuel == "Diesel") {
-        dAvg = dAvg + d.AverageCityMPG + d.AverageHighwayMPG;
-        dCount = dCount + 1;
+    if (d.Fuel == "Diesel") {
+        dAvg += parseInt(d.AverageCityMPG) + parseInt(d.AverageHighwayMPG);
+        dCount = dCount +1;
     }
-    else {
-        gAvg = gAvg + d.AverageCityMPG + d.AverageHighwayMPG;
-        gCount = gCount + 1;
+    if (d.Fuel == "Gasoline") {
+        gAvg += parseInt(d.AverageCityMPG) + parseInt(d.AverageHighwayMPG);
+        gCount = gCount +1;
     }
+ });
 }
 
 svg.append("g").attr("transform","translate("+margin+","+margin+")")
@@ -75,7 +76,7 @@ svg.append("g").attr("transform","translate("+margin+","+margin+")")
     .append("rect")
      .attr('cx', function(d,i) {return x(d.EngineCylinders);})
      .attr('cy', function(d,i) {return y(d.AverageCityMPG);})
-     .attr('r', function (d,i) {return 4})
+     .attr('r', function (d,i) {return 4;})
      .on("mouseover", handleMouseOver)
      .on("mouseout", handleMouseOut);
 
