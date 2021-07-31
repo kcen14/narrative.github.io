@@ -89,19 +89,19 @@ svg.append("g")
 
 svg.append("g")
    .attr("transform", "translate("+margin+","+(height+margin)+")")
-   .call(d3.axisBottom(x).tickValues([0, 1, 2]).tickFormat(d3.format("~s")));
+   .call(d3.axisBottom(x).tickValues(["Electric", "Diesel", "Gasoline"]).tickFormat(d3.format("~s")));
 
 svg.append("text")
     .attr("transform","translate("+(margin+width/2)+","+(height+margin+35)+")")
     .style("text-anchor", "middle")
-    .text("Engine Cylinders");
+    .text("Engine Type");
     
 svg.append("text")
     .attr("transform", "rotate(-90)")
     .attr("dy", (margin-35))
     .attr("dx", -(margin+height/2))
     .style("text-anchor", "middle")
-    .text("Average City MPG");
+    .text("Average MPG");
     
 function handleMouseOver(d, i) {
       d3.select(this)
