@@ -68,7 +68,7 @@ data.forEach(function(d){
     
 var gData = [{Fuel: "Electric", Avg: eAvg/(eCount*2)}, {Fuel: "Diesel", Avg: dAvg/(dCount*2)}, {Fuel: "Gasoline", Avg: gAvg/(gCount*2)}];
 
-var x = d3.scaleBand().domain(["Electric", "Diesel", "Gasoline"] ).range([0, width]);
+var x = d3.scaleBand().domain([0,1,2]).range([0, width]);
 var y = d3.scaleLog().domain([10,150]).range([height, 0]);    
     
 svg.append("g").attr("transform","translate("+margin+","+margin+")")
@@ -76,8 +76,8 @@ svg.append("g").attr("transform","translate("+margin+","+margin+")")
     .data(gData)
     .enter()
     .append("rect")
-     .attr("width",79)
-     .attr("x",function(d,i) {return x(d.Fuel)+60; })
+     .attr("width",99)
+     .attr("x",function(d,i) {return x(i)+50; })
      .attr("height", function(d) { return height-y(d.Avg); })
      .attr("y", function(d) {return y(d.Avg); })
      .on("mouseover", handleMouseOver)
@@ -87,9 +87,11 @@ svg.append("g")
    .attr("transform", "translate("+margin+","+margin+")")
    .call(d3.axisLeft(y).tickValues([10, 20, 50, 100]).tickFormat(d3.format('~s')));
 
+var xLabels = ["Electric", "Diesel", "Gasoline"];    
+
 svg.append("g")
    .attr("transform", "translate("+margin+","+(height+margin)+")")
-   .call(d3.axisBottom(x).tickValues(["Electric", "Diesel", "Gasoline"]).tickFormat(d3.format("~s")));
+   .call(d3.axisBottom(x).tickValues([0, 1, 2]).tickFormat(function(d,i) { return xLabels[i]; } ));
 
 svg.append("text")
     .attr("transform","translate("+(margin+width/2)+","+(height+margin+35)+")")
