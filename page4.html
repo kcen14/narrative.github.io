@@ -69,20 +69,8 @@ data.forEach(function(d){
 var gData = [{Fuel: "Electric", Avg: eAvg/(eCount*2)}, {Fuel: "Diesel", Avg: dAvg/(dCount*2)}, {Fuel: "Gasoline", Avg: gAvg/(gCount*2)}];
 
 var x = d3.scaleBand().domain([0,1,2]).range([0, width]);
-var y = d3.scaleLog().domain([10,150]).range([height, 0]);    
+var y = d3.scaleLog().domain([10,150]).range([height, 0]);   
     
-svg.append("g").attr("transform","translate("+margin+","+margin+")")
-    .selectAll("rect")
-    .data(gData)
-    .enter()
-    .append("rect")
-     .attr("width",99)
-     .attr("x",function(d,i) {return x(i)+50; })
-     .attr("height", function(d) { return height-y(d.Avg); })
-     .attr("y", function(d) {return y(d.Avg); })
-     .on("mouseover", handleMouseOver)
-     .on("mouseout", handleMouseOut);
-
 svg.append("g")
    .attr("transform", "translate("+margin+","+margin+")")
    .call(d3.axisLeft(y).tickValues([10, 20, 50, 100]).tickFormat(d3.format('~s')));
@@ -104,6 +92,21 @@ svg.append("text")
     .attr("dx", -(margin+height/2))
     .style("text-anchor", "middle")
     .text("Average MPG");
+    
+svg.append("g").attr("transform","translate("+margin+","+margin+")")
+    .selectAll("rect")
+    .data(gData)
+    .enter()
+    .append("rect")
+     .attr("width",99)
+     .attr("x",function(d,i) {return x(i)+50; })
+     .attr("height", 20)
+     .attr("y", 600)
+     .transition().duration(4000).delay(1000)
+     .attr("height", function(d) { return height-y(d.Avg); })
+     .attr("y", function(d) {return y(d.Avg); })
+     .on("mouseover", handleMouseOver)
+     .on("mouseout", handleMouseOut);
     
 function handleMouseOver(d, i) {
       d3.select(this)
