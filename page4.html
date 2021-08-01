@@ -2,7 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 
 <p>
-    <font size = "14"><b>3. Average Fuel Efficiency By Fuel Category</b></font>
+    <font size = "14"><b>4. Average Fuel Efficiency By Fuel Category</b></font>
 </p>    
     
 <p>
@@ -101,7 +101,7 @@ svg.append("g").attr("transform","translate("+margin+","+margin+")")
      .attr("width",99)
      .attr("x",function(d,i) {return x(i)+50; })
      .attr("height", 20)
-     .attr("y", 600)
+     .attr("y", 500)
      .transition().duration(4000).delay(1000)
      .attr("height", function(d) { return height-y(d.Avg); })
      .attr("y", function(d) {return y(d.Avg); })
