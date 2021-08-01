@@ -2,7 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 
 <p>
-    <font size = "14"><b>3. City Fuel Efficiencies By Number Of Engine Cylinders</b></font>
+    <font size = "14"><b>3. Average Fuel Efficiency By Fuel Category</b></font>
 </p>    
     
 <p>
@@ -66,9 +66,9 @@ data.forEach(function(d){
     }
  });
     
-var gData = [eAvg/(eCount*2), dAvg/(dCount*2), gAvg/(gCount*2)];
+var gData = [{Fuel: "Electric", Avg: eAvg/(eCount*2)}, {Fuel: "Diesel", Avg: dAvg/(dCount*2)}, {Fuel: "Gasoline", Avg: gAvg/(gCount*2)}];
 
-var x = d3.scaleLinear().domain([-1,4]).range([0, width]);
+var x = d3.scaleBand().domain(["Electric", "Diesel", "Gasoline"] ).range([0, width]);
 var y = d3.scaleLog().domain([10,150]).range([height, 0]);    
     
 svg.append("g").attr("transform","translate("+margin+","+margin+")")
@@ -77,9 +77,9 @@ svg.append("g").attr("transform","translate("+margin+","+margin+")")
     .enter()
     .append("rect")
      .attr("width",79)
-     .attr("x",function(d,i) {return (x(i)-40); })
-     .attr("height", function(d) { return height-y(d); })
-     .attr("y", function(d) {return y(d); })
+     .attr("x",function(d,i) {return x(d.Fuel)+60; })
+     .attr("height", function(d) { return height-y(d.Avg); })
+     .attr("y", function(d) {return y(d.Avg); })
      .on("mouseover", handleMouseOver)
      .on("mouseout", handleMouseOut);
 
